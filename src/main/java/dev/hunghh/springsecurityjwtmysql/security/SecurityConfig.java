@@ -17,5 +17,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable();
+        http.authorizeRequests().antMatchers("/login").permitAll();
+        http.authorizeRequests().antMatchers("/register").permitAll();
+        http
+                .authorizeRequests()
+                .antMatchers("/api/v4").hasAuthority("USER_READ") // (1)
+                .antMatchers("/api/v3").hasAnyAuthority("USER_READ", "USER_CREATE") // (2)
+                .anyRequest().authenticated() // (3)
+                .and()
+                .httpBasic();
     }
 }
