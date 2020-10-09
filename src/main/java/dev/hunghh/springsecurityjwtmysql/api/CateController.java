@@ -49,7 +49,7 @@ public class CateController {
 
 	@Autowired
 	private CateRepositoty cateRepository;
-	@GetMapping("/cate1")
+	@GetMapping("/catee")
 	public List<Category> getCate() {
 		return this.cateRepository.findAll();
 	}
@@ -99,7 +99,7 @@ public class CateController {
 	}
 
 	// tim theo id
-	@GetMapping("/cate{id}")
+	@GetMapping("/cate/{id}")
 	public ResponseEntity<Category> getCateById(@PathVariable(value = "id") Long cateId)
 			throws ResourceNotFoundException {
 		Category c = cateRepository.findById(cateId)

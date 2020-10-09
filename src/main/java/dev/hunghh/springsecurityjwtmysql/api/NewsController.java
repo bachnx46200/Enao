@@ -25,41 +25,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.exception.ResourceNotFoundException;
 
+import dev.hunghh.springsecurityjwtmysql.entity.Category;
 import dev.hunghh.springsecurityjwtmysql.entity.News;
 import dev.hunghh.springsecurityjwtmysql.repository.NewsRepository;
 
 @RestController
-@RequestMapping("/api/v6")
+@RequestMapping("api/v6")
 public class NewsController {
 	@Autowired
-	private NewsRepository newsRepository;
+	private NewsRepository newsrepository;
 
-	@GetMapping("/news")
-	public List<News> getNew() {
-		return this.newsRepository.findAll();
+	@GetMapping("/newlist")
+	public List<News> newsList() {
+		return this.newsrepository.findAll();
 	}
 
-//phan trang
-	@GetMapping("/news/")
-	public Page<News> News(Model model,
-			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
-			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
-		Sort sortable = null;
-		if (sort.equals("ASC")) {
-			sortable = Sort.by("id").ascending();
-		}
-		if (sort.equals("DESC")) {
-			sortable = Sort.by("id").descending();
-		}
-		Pageable pageable = PageRequest.of(page, size, sortable);
-
-		model.addAttribute("listNews", newsRepository.findNews(pageable));
-		return newsRepository.findNews(pageable);
-
-	}
-	//sap xep theo title
-	@GetMapping("/title/")
+	@GetMapping("/title")
 	public Page<News> title(Model model,
 			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
 			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
@@ -73,31 +54,31 @@ public class NewsController {
 		}
 		Pageable pageable = PageRequest.of(page, size, sortable);
 
-		model.addAttribute("listNews", newsRepository.findNews(pageable));
-		return newsRepository.findNews(pageable);
+//	model.addAttribute("listNews", newsrepository.findNews(pageable));
+		return newsrepository.findNews(pageable);
 
 	}
-	//sap xep theo new desc
-	@GetMapping("/news_desc/")
-	public Page<News> news_desc(Model model,
+
+	@GetMapping("/new_desc")
+	public Page<News> new_desc(Model model,
 			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
 			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
 			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
 		Sort sortable = null;
 		if (sort.equals("ASC")) {
-			sortable = Sort.by("news_desc").ascending();
+			sortable = Sort.by("new_desc").ascending();
 		}
 		if (sort.equals("DESC")) {
-			sortable = Sort.by("news_desc").descending();
+			sortable = Sort.by("new_desc").descending();
 		}
 		Pageable pageable = PageRequest.of(page, size, sortable);
 
-		model.addAttribute("listNews", newsRepository.findNews(pageable));
-		return newsRepository.findNews(pageable);
+//	model.addAttribute("listNews", newsrepository.findNews(pageable));
+		return newsrepository.findNews(pageable);
 
 	}
-	//sap xep theo noi dung
-	@GetMapping("/content/")
+
+	@GetMapping("/content")
 	public Page<News> content(Model model,
 			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
 			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
@@ -111,12 +92,12 @@ public class NewsController {
 		}
 		Pageable pageable = PageRequest.of(page, size, sortable);
 
-		model.addAttribute("listNews", newsRepository.findNews(pageable));
-		return newsRepository.findNews(pageable);
+//	model.addAttribute("listNews", newsrepository.findNews(pageable));
+		return newsrepository.findNews(pageable);
 
 	}
-	//sap xep theo id usser
-	@GetMapping("/id_user/")
+
+	@GetMapping("/id_user")
 	public Page<News> id_user(Model model,
 			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
 			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
@@ -130,12 +111,12 @@ public class NewsController {
 		}
 		Pageable pageable = PageRequest.of(page, size, sortable);
 
-		model.addAttribute("listNews", newsRepository.findNews(pageable));
-		return newsRepository.findNews(pageable);
+//	model.addAttribute("listNews", newsrepository.findNews(pageable));
+		return newsrepository.findNews(pageable);
 
 	}
-	//sap xep theo create at
-	@GetMapping("/created_at/")
+
+	@GetMapping("/created_at")
 	public Page<News> created_at(Model model,
 			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
 			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
@@ -149,30 +130,31 @@ public class NewsController {
 		}
 		Pageable pageable = PageRequest.of(page, size, sortable);
 
-		model.addAttribute("listNews", newsRepository.findNews(pageable));
-		return newsRepository.findNews(pageable);
+//	model.addAttribute("listNews", newsrepository.findNews(pageable));
+		return newsrepository.findNews(pageable);
 
 	}
-	//sap xep theo update at
-	@GetMapping("/updated_at/")
-	public Page<News> updated_at(Model model,
+
+	@GetMapping("/update_at")
+	public Page<News> update_at(Model model,
 			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
 			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
 			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
 		Sort sortable = null;
 		if (sort.equals("ASC")) {
-			sortable = Sort.by("updated_at").ascending();
+			sortable = Sort.by("update_at").ascending();
 		}
 		if (sort.equals("DESC")) {
-			sortable = Sort.by("updated_at").descending();
+			sortable = Sort.by("update_at").descending();
 		}
 		Pageable pageable = PageRequest.of(page, size, sortable);
 
-		model.addAttribute("listNews", newsRepository.findNews(pageable));
-		return newsRepository.findNews(pageable);
+//	model.addAttribute("listNews", newsrepository.findNews(pageable));
+		return newsrepository.findNews(pageable);
 
 	}
-	@GetMapping("/news/")
+
+	@GetMapping("/id_cate")
 	public Page<News> id_cate(Model model,
 			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
 			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
@@ -186,60 +168,39 @@ public class NewsController {
 		}
 		Pageable pageable = PageRequest.of(page, size, sortable);
 
-		model.addAttribute("listNews", newsRepository.findNews(pageable));
-		return newsRepository.findNews(pageable);
+//	model.addAttribute("listNews", newsrepository.findNews(pageable));
+		return newsrepository.findNews(pageable);
 
 	}
 
-// thêm
+	
 	@PostMapping("/news")
 	public News createCate(@Valid @RequestBody News news) {
-		return this.newsRepository.save(news);
+		return this.newsrepository.save(news);
 	}
-
-//tìm theo id
-	@GetMapping("/news/{id}")
-	public ResponseEntity<News> getCateById(@PathVariable(value = "id") Long newsId) throws ResourceNotFoundException {
-		News n = newsRepository.findById(newsId)
-				.orElseThrow(() -> new ResourceNotFoundException("Class not found for this id::" + newsId));
-		return ResponseEntity.ok().body(n);
-	}
-
-//update
+	
 	@PutMapping("/news/{id}")
-	public ResponseEntity<News> UpdateById(@PathVariable(value = "id") Long newsId, @Valid @RequestBody News news)
-			throws ResourceNotFoundException {
-		News n = newsRepository.findById(newsId)
-				.orElseThrow(() -> new ResourceNotFoundException("Class not found for this id::" + newsId));
-		n.setTitle(news.getTitle());
-		n.setNews_desc(news.getNews_desc());
-		n.setContent(news.getContent());
-		n.setCreated_at(news.getCreated_at());
-		n.setUpdated_at(news.getUpdated_at());
-		final News Updatenews = newsRepository.save(n);
-		return ResponseEntity.ok().body(Updatenews);
+	public ResponseEntity<News> updateNews(@PathVariable(value="id") Long id,@Valid @RequestBody News n1) 
+			throws ResourceNotFoundException{
+		News n = newsrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Class not found for this id:" + id));
+		n.setTitle(n1.getTitle());
+		n.setNew_desc(n1.getNew_desc());
+		n.setContent(n1.getContent());
+		n.setId_user(n1.getId_user());
+		n.setCreated_at(n1.getCreated_at());
+		n.setUpdate_at(n1.getUpdate_at());
+		//n.setId_cate(n1.getId());
+		News Updatenews = newsrepository.save(n);
+		return ResponseEntity.ok(Updatenews);
 	}
-
-//delete
+	
 	@DeleteMapping("/news/{id}")
 	public Map<String, Boolean> delete1(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
-		News n = newsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("not found this" + id));
-		this.newsRepository.delete(n);
+		News c = newsrepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("not found this" + id));
+		this.newsrepository.delete(c);
 		Map<String, Boolean> respone = new HashMap<>();
 		respone.put("delete", Boolean.TRUE);
 		return respone;
-	}
-
-	// get id theo the loai
-	@GetMapping("/search/{id}")
-	public List<Object[]> gettitle(@PathVariable(value = "id") Long id) {
-		return this.newsRepository.findByCate_id(id);
-	}
-	@GetMapping("/cate/{keyword}")
-	public List<News> getUpper(@PathVariable(value = "keyword") String keyword) {
-		if (keyword != null) {
-			return this.newsRepository.findunaccent(keyword);
-		}
-		return this.newsRepository.findAll();
 	}
 }
