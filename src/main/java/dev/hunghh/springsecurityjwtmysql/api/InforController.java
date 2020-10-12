@@ -19,9 +19,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.exception.ResourceNotFoundException;
 
+import dev.hunghh.springsecurityjwtmysql.dto.InforDTO;
 import dev.hunghh.springsecurityjwtmysql.entity.Infor;
 import dev.hunghh.springsecurityjwtmysql.entity.StudentInfor;
 import dev.hunghh.springsecurityjwtmysql.repository.InforRepository;
@@ -48,16 +50,25 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @RestController
 @RequestMapping("/api/v3")
+@CrossOrigin(origins = "*")
 public class InforController {
 
 	@Autowired
 	private InforRepository inforRepository;
 
-	@Autowired
-	private InforService service;
+    private final InforService inforService;
+    
+
+	public InforController(InforService inforService) {
+		
+		this.inforService = inforService;
+	}
+
 
 	@Autowired
 	ApplicationContext context;
+	
+	private static final String DATE_PATTERN = "yyyy/MM/dd";
 
 	// Get Infor
 	@GetMapping("/infor")
@@ -79,7 +90,7 @@ public class InforController {
 	@GetMapping("/infor2/{keyword}")
 	public Page<Infor> listInfors2(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
 			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
-			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort,@PathVariable(name = "keyword") String keyword) {
+			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort,@RequestParam(name = "keyword") String keyword) {
 		Sort sortable = null;
 		if (sort.equals("ASC")) {
 			sortable = Sort.by("fullname").ascending();
@@ -109,7 +120,7 @@ public class InforController {
 	}
 
 	// update Infor
-	@PutMapping("/infor{id}")
+	@PutMapping("/infor/{id}")
 	public ResponseEntity<Infor> updateInfor(@PathVariable(value = "id") Long inforId, @Valid @RequestBody Infor i1)
 			throws ResourceNotFoundException {
 		Infor i = inforRepository.findById(inforId)
@@ -185,5 +196,19 @@ public class InforController {
 		 //Export PDF Stream
 		JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 	}
+	
+	
+    @GetMapping("/tt")
+    public List<InforDTO> getStudents(@RequestParam(required = false)
+                                        @DateTimeFormat(pattern = DATE_PATTERN) Date fromDate,
+                                        @RequestParam(required = false)
+                                        @DateTimeFormat(pattern = DATE_PATTERN) Date toDate,
+                                        @RequestParam(required = false) String fullname,
+                                        @RequestParam(required = false) String gender,
+                                        @RequestParam(required = false) String address,
+                                        @RequestParam(required = false) String phone,
+                                        Pageable pageable){
+        return inforService.getInfors(fromDate, toDate, fullname, gender, address, phone, pageable);
+    }
 
 }

@@ -142,30 +142,30 @@ public class CateController {
 		return this.cateRepository.findAll();
 	}
 	
-    @GetMapping(path ="/export/pdf")
-    @ResponseBody
-//    public void getPdf(@PathVariable String jrxml, HttpServletResponse response) throws Exception {
-    public void getPdf(HttpServletResponse response) throws Exception {
-        //Get JRXML template from resources folder
-//        Resource resource = context.getResource("classpath:reports/" + jrxml + ".jrxml");
-        Resource resource = context.getResource("classpath:cate.jrxml");
-        //Compile to jasperReport
-        InputStream inputStream = resource.getInputStream();
-        JasperReport report = JasperCompileManager.compileReport(inputStream);
-        //Parameters Set
-        Map<String, Object> params = new HashMap<>();
-
-//        List<Car> cars = (List<Car>) carRepository.findAll();
-        List<Category> cate  = cateRepository.findAll();
-        //Data source Set
-        JRDataSource dataSource = new JRBeanCollectionDataSource(cate);
-        params.put("datasource", dataSource);
-
-        //Make jasperPrint
-        JasperPrint jasperPrint = JasperFillManager.fillReport(report, params, dataSource);
-        //Media Type
-        response.setContentType(MediaType.APPLICATION_PDF_VALUE);
-        //Export PDF Stream
-        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
-    }
+//    @GetMapping(path ="/export/pdf")
+//    @ResponseBody
+////    public void getPdf(@PathVariable String jrxml, HttpServletResponse response) throws Exception {
+//    public void getPdf(HttpServletResponse response) throws Exception {
+//        //Get JRXML template from resources folder
+////        Resource resource = context.getResource("classpath:reports/" + jrxml + ".jrxml");
+//        Resource resource = context.getResource("classpath:cate.jrxml");
+//        //Compile to jasperReport
+//        InputStream inputStream = resource.getInputStream();
+//        JasperReport report = JasperCompileManager.compileReport(inputStream);
+//        //Parameters Set
+//        Map<String, Object> params = new HashMap<>();
+//
+////        List<Car> cars = (List<Car>) carRepository.findAll();
+//        List<Category> cate  = cateRepository.findAll();
+//        //Data source Set
+//        JRDataSource dataSource = new JRBeanCollectionDataSource(cate);
+//        params.put("datasource", dataSource);
+//
+//        //Make jasperPrint
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(report, params, dataSource);
+//        //Media Type
+//        response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+//        //Export PDF Stream
+//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+//    }
 }
