@@ -22,26 +22,26 @@ public class News {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotNull
-	@Size(min = 10, max = 30, message = " Fullname must be equal to or greater than 2 characters and less than 30 characters")
 	@Column(name = "title")
+	@NotNull
+	@Size(min = 2, max = 50, message = "can't smaller 2 and bigger 50")
 	private String title;
-	@NotNull
-	@Size(min = 10, max = 30, message = " Fullname must be equal to or greater than 2 characters and less than 30 characters")
 	@Column(name = "new_desc")
-	private String news_desc;
 	@NotNull
-	@Size(min = 10, max = 200, message = " Fullname must be equal to or greater than 2 characters and less than 200 characters")
+	@Size(min = 2, max = 100, message = "can't smaller 2 and bigger 50")
+	private String new_desc;
 	@Column(name = "content")
-	private String content;
 	@NotNull
+	@Size(min = 2, max = 200, message = "can't smaller 2 and bigger 50")
+	private String content;
 	@Column(name = "id_user")
+	@NotNull
 	private Long id_user;
 	@Column(name = "created_at")
+	@NotNull
 	private Date created_at;
-	@NotNull
-	private Date updated_at;
-	@NotNull
+	@Column(name = "updated_at")
+	private Date update_at;
+	@Column(name = "id_cate")
 	private Long id_cate;
-
 }

@@ -40,156 +40,156 @@ public class NewsController {
 	}
 
 //phan trang
-//	@GetMapping("/news/")
-//	public Page<News> News(Model model,
-//			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-//			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
-//			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
-//		Sort sortable = null;
-//		if (sort.equals("ASC")) {
-//			sortable = Sort.by("id").ascending();
-//		}
-//		if (sort.equals("DESC")) {
-//			sortable = Sort.by("id").descending();
-//		}
-//		Pageable pageable = PageRequest.of(page, size, sortable);
-//
-//		model.addAttribute("listNews", newsRepository.findNews(pageable));
-//		return newsRepository.findNews(pageable);
-//
-//	}
-//	//sap xep theo title
-//	@GetMapping("/title/")
-//	public Page<News> title(Model model,
-//			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-//			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
-//			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
-//		Sort sortable = null;
-//		if (sort.equals("ASC")) {
-//			sortable = Sort.by("title").ascending();
-//		}
-//		if (sort.equals("DESC")) {
-//			sortable = Sort.by("title").descending();
-//		}
-//		Pageable pageable = PageRequest.of(page, size, sortable);
-//
-//		model.addAttribute("listNews", newsRepository.findNews(pageable));
-//		return newsRepository.findNews(pageable);
-//
-//	}
-//	//sap xep theo new desc
-//	@GetMapping("/news_desc/")
-//	public Page<News> news_desc(Model model,
-//			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-//			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
-//			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
-//		Sort sortable = null;
-//		if (sort.equals("ASC")) {
-//			sortable = Sort.by("news_desc").ascending();
-//		}
-//		if (sort.equals("DESC")) {
-//			sortable = Sort.by("news_desc").descending();
-//		}
-//		Pageable pageable = PageRequest.of(page, size, sortable);
-//
-//		model.addAttribute("listNews", newsRepository.findNews(pageable));
-//		return newsRepository.findNews(pageable);
-//
-//	}
-//	//sap xep theo noi dung
-//	@GetMapping("/content/")
-//	public Page<News> content(Model model,
-//			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-//			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
-//			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
-//		Sort sortable = null;
-//		if (sort.equals("ASC")) {
-//			sortable = Sort.by("content").ascending();
-//		}
-//		if (sort.equals("DESC")) {
-//			sortable = Sort.by("content").descending();
-//		}
-//		Pageable pageable = PageRequest.of(page, size, sortable);
-//
-//		model.addAttribute("listNews", newsRepository.findNews(pageable));
-//		return newsRepository.findNews(pageable);
-//
-//	}
-//	//sap xep theo id usser
-//	@GetMapping("/id_user/")
-//	public Page<News> id_user(Model model,
-//			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-//			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
-//			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
-//		Sort sortable = null;
-//		if (sort.equals("ASC")) {
-//			sortable = Sort.by("id_user").ascending();
-//		}
-//		if (sort.equals("DESC")) {
-//			sortable = Sort.by("id_user").descending();
-//		}
-//		Pageable pageable = PageRequest.of(page, size, sortable);
-//
-//		model.addAttribute("listNews", newsRepository.findNews(pageable));
-//		return newsRepository.findNews(pageable);
-//
-//	}
-//	//sap xep theo create at
-//	@GetMapping("/created_at/")
-//	public Page<News> created_at(Model model,
-//			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-//			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
-//			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
-//		Sort sortable = null;
-//		if (sort.equals("ASC")) {
-//			sortable = Sort.by("created_at").ascending();
-//		}
-//		if (sort.equals("DESC")) {
-//			sortable = Sort.by("created_at").descending();
-//		}
-//		Pageable pageable = PageRequest.of(page, size, sortable);
-//
-//		model.addAttribute("listNews", newsRepository.findNews(pageable));
-//		return newsRepository.findNews(pageable);
-//
-//	}
-//	//sap xep theo update at
-//	@GetMapping("/updated_at/")
-//	public Page<News> updated_at(Model model,
-//			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-//			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
-//			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
-//		Sort sortable = null;
-//		if (sort.equals("ASC")) {
-//			sortable = Sort.by("updated_at").ascending();
-//		}
-//		if (sort.equals("DESC")) {
-//			sortable = Sort.by("updated_at").descending();
-//		}
-//		Pageable pageable = PageRequest.of(page, size, sortable);
-//
-//		model.addAttribute("listNews", newsRepository.findNews(pageable));
-//		return newsRepository.findNews(pageable);
-//
-//	}
-//	@GetMapping("/news/")
-//	public Page<News> id_cate(Model model,
-//			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-//			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
-//			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
-//		Sort sortable = null;
-//		if (sort.equals("ASC")) {
-//			sortable = Sort.by("id_cate").ascending();
-//		}
-//		if (sort.equals("DESC")) {
-//			sortable = Sort.by("id_cate").descending();
-//		}
-//		Pageable pageable = PageRequest.of(page, size, sortable);
-//
-//		model.addAttribute("listNews", newsRepository.findNews(pageable));
-//		return newsRepository.findNews(pageable);
-//
-//	}
+	@GetMapping("/news/")
+	public Page<News> News(Model model,
+			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
+			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
+		Sort sortable = null;
+		if (sort.equals("ASC")) {
+			sortable = Sort.by("id").ascending();
+		}
+		if (sort.equals("DESC")) {
+			sortable = Sort.by("id").descending();
+		}
+		Pageable pageable = PageRequest.of(page, size, sortable);
+
+		model.addAttribute("listNews", newsRepository.findNews(pageable));
+		return newsRepository.findNews(pageable);
+
+	}
+	//sap xep theo title
+	@GetMapping("/title/")
+	public Page<News> title(Model model,
+			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
+			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
+		Sort sortable = null;
+		if (sort.equals("ASC")) {
+			sortable = Sort.by("title").ascending();
+		}
+		if (sort.equals("DESC")) {
+			sortable = Sort.by("title").descending();
+		}
+		Pageable pageable = PageRequest.of(page, size, sortable);
+
+		model.addAttribute("listNews", newsRepository.findNews(pageable));
+		return newsRepository.findNews(pageable);
+
+	}
+	//sap xep theo new desc
+	@GetMapping("/news_desc/")
+	public Page<News> news_desc(Model model,
+			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
+			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
+		Sort sortable = null;
+		if (sort.equals("ASC")) {
+			sortable = Sort.by("news_desc").ascending();
+		}
+		if (sort.equals("DESC")) {
+			sortable = Sort.by("news_desc").descending();
+		}
+		Pageable pageable = PageRequest.of(page, size, sortable);
+
+		model.addAttribute("listNews", newsRepository.findNews(pageable));
+		return newsRepository.findNews(pageable);
+
+	}
+	//sap xep theo noi dung
+	@GetMapping("/content/")
+	public Page<News> content(Model model,
+			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
+			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
+		Sort sortable = null;
+		if (sort.equals("ASC")) {
+			sortable = Sort.by("content").ascending();
+		}
+		if (sort.equals("DESC")) {
+			sortable = Sort.by("content").descending();
+		}
+		Pageable pageable = PageRequest.of(page, size, sortable);
+
+		model.addAttribute("listNews", newsRepository.findNews(pageable));
+		return newsRepository.findNews(pageable);
+
+	}
+	//sap xep theo id usser
+	@GetMapping("/id_user/")
+	public Page<News> id_user(Model model,
+			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
+			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
+		Sort sortable = null;
+		if (sort.equals("ASC")) {
+			sortable = Sort.by("id_user").ascending();
+		}
+		if (sort.equals("DESC")) {
+			sortable = Sort.by("id_user").descending();
+		}
+		Pageable pageable = PageRequest.of(page, size, sortable);
+
+		model.addAttribute("listNews", newsRepository.findNews(pageable));
+		return newsRepository.findNews(pageable);
+
+	}
+	//sap xep theo create at
+	@GetMapping("/created_at/")
+	public Page<News> created_at(Model model,
+			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
+			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
+		Sort sortable = null;
+		if (sort.equals("ASC")) {
+			sortable = Sort.by("created_at").ascending();
+		}
+		if (sort.equals("DESC")) {
+			sortable = Sort.by("created_at").descending();
+		}
+		Pageable pageable = PageRequest.of(page, size, sortable);
+
+		model.addAttribute("listNews", newsRepository.findNews(pageable));
+		return newsRepository.findNews(pageable);
+
+	}
+	//sap xep theo update at
+	@GetMapping("/updated_at/")
+	public Page<News> updated_at(Model model,
+			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
+			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
+		Sort sortable = null;
+		if (sort.equals("ASC")) {
+			sortable = Sort.by("updated_at").ascending();
+		}
+		if (sort.equals("DESC")) {
+			sortable = Sort.by("updated_at").descending();
+		}
+		Pageable pageable = PageRequest.of(page, size, sortable);
+
+		model.addAttribute("listNews", newsRepository.findNews(pageable));
+		return newsRepository.findNews(pageable);
+
+	}
+	@GetMapping("/news/")
+	public Page<News> id_cate(Model model,
+			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+			@RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
+			@RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
+		Sort sortable = null;
+		if (sort.equals("ASC")) {
+			sortable = Sort.by("id_cate").ascending();
+		}
+		if (sort.equals("DESC")) {
+			sortable = Sort.by("id_cate").descending();
+		}
+		Pageable pageable = PageRequest.of(page, size, sortable);
+
+		model.addAttribute("listNews", newsRepository.findNews(pageable));
+		return newsRepository.findNews(pageable);
+
+	}
 
 // thêm
 	@PostMapping("/news")
@@ -231,7 +231,7 @@ public class NewsController {
 	}
 
 	// get id theo the loai
-	@GetMapping("/search-new/{id}")
+	@GetMapping("/search/{id}")
 	public List<Object[]> gettitle(@PathVariable(value = "id") Long id) {
 		return this.newsRepository.findByCate_id(id);
 	}
