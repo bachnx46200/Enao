@@ -44,7 +44,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             token = verificationTokenService.findByToken(jwt);
             System.out.println("da kim tre thanh cong token");
         }
-   
+
+
+        //check token va check thoi gian token con su dung
         if (null != user && null != token && token.getTokenExpDate().after(new Date())) {
             Set<GrantedAuthority> authorities = new HashSet<>();
             user.getAuthorities().forEach(p -> authorities.add(new SimpleGrantedAuthority((String) p)));

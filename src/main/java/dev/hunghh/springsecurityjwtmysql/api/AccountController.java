@@ -92,17 +92,41 @@ public class AccountController {
 
 	}
 
-	// delete Account
-	@DeleteMapping("/acc/{id}")
-	public Map<String, Boolean> deleteAccount(@PathVariable(value = "id") Long accId) throws ResourceNotFoundException {
-		User acc = accountRepository.findById(accId)
-				.orElseThrow(() -> new ResourceNotFoundException("Account not found for this id:" + accId));
-		accountRepository.delete(acc);
-		Map<String, Boolean> respone = new HashMap<>();
-		respone.put("deleted", Boolean.TRUE);
-		return respone;
 
+	// active=true Account
+	@PutMapping("/active-acc/{id}")
+	public ResponseEntity<User> TrueAccount(@PathVariable(value = "id") Long accId
+											) throws ResourceNotFoundException {
+
+		User acc = accountRepository.findById(accId)
+				.orElseThrow(() -> new ResourceNotFoundException("account not found for this id:" + accId));
+		acc.setActive(true);
+		final User updateAccount = accountRepository.save(acc);
+		return ResponseEntity.ok(updateAccount);
 	}
+
+	// active=false Account
+	@PutMapping("/disactive-acc/{id}")
+	public ResponseEntity<User> FalseAccount(@PathVariable(value = "id") Long accId
+											) throws ResourceNotFoundException {
+
+		User acc = accountRepository.findById(accId)
+				.orElseThrow(() -> new ResourceNotFoundException("account not found for this id:" + accId));
+		acc.setActive(false);
+		final User updateAccount = accountRepository.save(acc);
+		return ResponseEntity.ok(updateAccount);
+	}
+//	// delete Account
+//	@DeleteMapping("/acc/{id}")
+//	public Map<String, Boolean> deleteAccount(@PathVariable(value = "id") Long accId) throws ResourceNotFoundException {
+//		User acc = accountRepository.findById(accId)
+//				.orElseThrow(() -> new ResourceNotFoundException("Account not found for this id:" + accId));
+//		accountRepository.delete(acc);
+//		Map<String, Boolean> respone = new HashMap<>();
+//		respone.put("deleted", Boolean.TRUE);
+//		return respone;
+//
+//	}
 
 	// List theo câu query 1
 	@GetMapping("/user")
