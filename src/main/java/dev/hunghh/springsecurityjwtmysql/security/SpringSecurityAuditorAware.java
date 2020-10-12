@@ -16,7 +16,7 @@ public class SpringSecurityAuditorAware implements AuditorAware<Long> {
         if (authentication == null || !authentication.isAuthenticated()) {
             return null;
         }
-        if (authentication.getPrincipal() == "anonymousUser") {
+        if (authentication.getPrincipal()=="anonymousUser"){
             return Optional.of(0l);
         }
         return Optional.of(((UserPrincipal) authentication.getPrincipal()).getUserId());

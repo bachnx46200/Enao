@@ -24,7 +24,7 @@ public abstract class BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "boolean default false")
+    @Column(columnDefinition = "boolean default true")
     private boolean active = true;
 
     @CreatedDate

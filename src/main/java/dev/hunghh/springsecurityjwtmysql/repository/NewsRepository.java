@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import dev.hunghh.springsecurityjwtmysql.entity.News;
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
-	@Query("SELECT c FROM Category c")
+	@Query("SELECT n FROM News n")
 	Page<News> findNews(Pageable pageable);
 	@Query(value = "select new_desc,title,content,created_at,updated_at from news join category on news.id_cate = category.id and id_cate=?1", nativeQuery = true)
 	List<Object[]> findByCate_id(Long id);

@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 public class AuthController {
+
 
     @Autowired
     private UserService userService;
@@ -29,18 +32,25 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/register")
-    public User register(@RequestBody User user) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-
-        return userService.createUser(user);
+    public Object register(@RequestBody User user) {
+        UserPrincipal use= userService.findByUsername(user.getUsername());
+        if(user.getUsername().equals(use.getUsername())){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("tài khoản dax ton tai");
+        }else {
+            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+            return userService.createUser(user);
+        }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user) {
+    public ResponseEntity<?> login( @Valid  @RequestBody User user) {
         UserPrincipal userPrincipal = userService.findByUsername(user.getUsername());
+        System.out.println(userPrincipal.getAuthorities());
+
         if (null == user || !new BCryptPasswordEncoder().matches(user.getPassword(), userPrincipal.getPassword())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("tài khoản hoặc mật khẩu không chính xác");
         }
+
         Token token = new Token();
         token.setToken(jwtUtil.generateToken(userPrincipal));
         token.setTokenExpDate(jwtUtil.generateExpirationDate());
@@ -51,6 +61,7 @@ public class AuthController {
 
     @GetMapping("/hello")
     @PreAuthorize("hasAnyAuthority('USER_READ')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity hello() {
         return ResponseEntity.ok("hello");
     }

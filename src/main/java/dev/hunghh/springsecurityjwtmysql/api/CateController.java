@@ -53,8 +53,7 @@ public class CateController {
 	public List<Category> getCate() {
 		return this.cateRepository.findAll();
 	}
-	// phÃ¢n trang
-	// http://localhost:8081/jpa/v1/cate/?page=2&size=10
+
 	@GetMapping("/cate")
 	public Page<Category> Category(Model model,
 			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
@@ -99,7 +98,7 @@ public class CateController {
 	}
 
 	// tim theo id
-	@GetMapping("/cate{id}")
+	@GetMapping("/cate/{id}")
 	public ResponseEntity<Category> getCateById(@PathVariable(value = "id") Long cateId)
 			throws ResourceNotFoundException {
 		Category c = cateRepository.findById(cateId)
@@ -134,7 +133,7 @@ public class CateController {
 	}
 
 	// tìm không dấu
-	@GetMapping("/cate/{keyword}")
+	@GetMapping("/search-cate/{keyword}")
 	public List<Category> getUpper(@PathVariable(value = "keyword") String keyword) {
 		if (keyword != null) {
 			return this.cateRepository.search(keyword);

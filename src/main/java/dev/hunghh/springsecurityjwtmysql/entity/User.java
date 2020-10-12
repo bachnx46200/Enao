@@ -15,8 +15,9 @@ import java.util.Set;
 @Setter
 public class User extends BaseEntity {
 
+    @NotNull
     private String username;
-
+@NotNull
     private String password;
 
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
@@ -24,15 +25,15 @@ public class User extends BaseEntity {
     private Set<Role> roles = new HashSet<>();
 
 
-    @NotNull
+
     @Column(name = "id_infor")
     private Long id_infor;
 
-    @NotNull
+
     @Column(name = "id_role")
     private Long id_role;
 
-    @NotNull
+
     @Column(name = "id_class")
     private Long id_class;
 }

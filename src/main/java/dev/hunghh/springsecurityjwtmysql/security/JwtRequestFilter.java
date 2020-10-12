@@ -37,12 +37,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         UserPrincipal user = null;
         Token token = null;
+        ///kiem tra token 
         if (StringUtils.hasText(authorizationHeader) && authorizationHeader.startsWith("Token ")) {
             String jwt = authorizationHeader.substring(6);
             user = jwtUtil.getUserFromToken(jwt);
             token = verificationTokenService.findByToken(jwt);
+            System.out.println("da kim tre thanh cong token");
         }
-
+   
         if (null != user && null != token && token.getTokenExpDate().after(new Date())) {
             Set<GrantedAuthority> authorities = new HashSet<>();
             user.getAuthorities().forEach(p -> authorities.add(new SimpleGrantedAuthority((String) p)));
@@ -50,6 +52,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                     new UsernamePasswordAuthenticationToken(user, null, authorities);
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            System.out.println("set security");
         }
 
         filterChain.doFilter(request, response);

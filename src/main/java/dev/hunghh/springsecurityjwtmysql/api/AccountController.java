@@ -71,13 +71,6 @@ public class AccountController {
 		return ResponseEntity.ok().body(ac);
 	}
 
-	// Save Account
-	@PostMapping("/acc")
-	public User createAccount(@Valid @RequestBody User ac) {
-
-		return accountRepository.save(ac);
-
-	}
 
 	// update Account
 	@PutMapping("/acc/{id}")

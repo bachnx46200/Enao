@@ -5,6 +5,9 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import dev.hunghh.springsecurityjwtmysql.entity.userRole;
+import dev.hunghh.springsecurityjwtmysql.repository.UserRepository;
+import dev.hunghh.springsecurityjwtmysql.repository.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,6 +37,9 @@ public class RoleController {
 	@Autowired
 	private RoleRepository roleRepository;
 
+
+	@Autowired
+	private UserRoleRepository userRoleRepository;
 	// get Role
 	@GetMapping("/role")
 	public Page<Role> Role(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
@@ -62,7 +68,6 @@ public class RoleController {
 	@PostMapping("/role")
 	public Role createRole(@Valid @RequestBody Role r) {
 		return this.roleRepository.save(r);
-
 	}
 
 	// update role
@@ -91,5 +96,15 @@ public class RoleController {
 
 		return respone;
 	}
+
+
+	///cre user-role
+	@PostMapping("/user-role")
+	public userRole createUserRole( @Valid @RequestBody userRole r) {
+		return userRoleRepository.save(r);
+	}
+
+
+
 
 }
