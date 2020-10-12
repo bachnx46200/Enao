@@ -11,13 +11,17 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "news")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class News {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

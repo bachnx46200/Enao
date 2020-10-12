@@ -1,23 +1,20 @@
 package dev.hunghh.springsecurityjwtmysql.api;
 
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,26 +23,26 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.exception.ResourceNotFoundException;
 
+import dev.hunghh.springsecurityjwtmysql.dto.CategoryDTO;
 import dev.hunghh.springsecurityjwtmysql.entity.Category;
 import dev.hunghh.springsecurityjwtmysql.repository.CateRepositoty;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import dev.hunghh.springsecurityjwtmysql.service.CateService;
 
 @RestController
 @RequestMapping("/api/v5")
+
 public class CateController {
 	@Autowired
     ApplicationContext context;
+	private final CateService cateService;
+	public CateController(CateService cateService) {
+		
+		this.cateService = cateService;
+	}
 
 	@Autowired
 	private CateRepositoty cateRepository;
@@ -142,30 +139,11 @@ public class CateController {
 		return this.cateRepository.findAll();
 	}
 	
-//    @GetMapping(path ="/export/pdf")
-//    @ResponseBody
-////    public void getPdf(@PathVariable String jrxml, HttpServletResponse response) throws Exception {
-//    public void getPdf(HttpServletResponse response) throws Exception {
-//        //Get JRXML template from resources folder
-////        Resource resource = context.getResource("classpath:reports/" + jrxml + ".jrxml");
-//        Resource resource = context.getResource("classpath:cate.jrxml");
-//        //Compile to jasperReport
-//        InputStream inputStream = resource.getInputStream();
-//        JasperReport report = JasperCompileManager.compileReport(inputStream);
-//        //Parameters Set
-//        Map<String, Object> params = new HashMap<>();
-//
-////        List<Car> cars = (List<Car>) carRepository.findAll();
-//        List<Category> cate  = cateRepository.findAll();
-//        //Data source Set
-//        JRDataSource dataSource = new JRBeanCollectionDataSource(cate);
-//        params.put("datasource", dataSource);
-//
-//        //Make jasperPrint
-//        JasperPrint jasperPrint = JasperFillManager.fillReport(report, params, dataSource);
-//        //Media Type
-//        response.setContentType(MediaType.APPLICATION_PDF_VALUE);
-//        //Export PDF Stream
-//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
-//    }
+	@GetMapping("/s")
+	public List<CategoryDTO> getCate(@RequestParam(required = false) String cate_name,
+								@RequestParam(required = false) String cate_desc,
+								Pageable pageable)
+	{
+		return cateService.getCate(cate_name, cate_desc, pageable);
+	}
 }

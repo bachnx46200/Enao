@@ -9,6 +9,7 @@ import dev.hunghh.springsecurityjwtmysql.dto.InforDTO;
 
 public interface InforService {
 	
-	List<InforDTO> getInfors(Date fromDate, Date toDate,String fullname, String gender,String address,String phone,Pageable pageable);
+	List<InforDTO> getInfors(Date fromDate, Date toDate,
+String fullname, String gender,String address,String phone,Pageable pageable);
 
 }
