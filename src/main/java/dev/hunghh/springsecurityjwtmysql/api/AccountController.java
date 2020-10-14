@@ -86,11 +86,11 @@ public class AccountController {
 				.orElseThrow(() -> new ResourceNotFoundException("account not found for this id:" + accId));
 		acc.setUsername(acc1.getUsername());
 		acc.setPassword(acc1.getPassword());
-		acc.setId_infor(acc1.getId_infor());
+//		acc.setId_infor(acc1.getId_infor());
 		acc.setCreatedAt(acc1.getCreatedAt());
 		acc.setUpdatedAt(acc1.getUpdatedAt());
 		acc.setId_role(acc1.getId_role());
-		acc.setId_class(acc1.getId_class());
+//		acc.setId_class(acc1.getId_class());
 
 		final User updateAccount = accountRepository.save(acc);
 		return ResponseEntity.ok(updateAccount);
