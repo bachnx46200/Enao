@@ -20,4 +20,6 @@ public class TokenServiceImpl implements TokenService {
     public Token findByToken(String token) {
         return tokenRepository.findByToken(token);
     }
+
+
 }

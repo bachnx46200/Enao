@@ -12,6 +12,8 @@ import javax.persistence.Tuple;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import dev.hunghh.springsecurityjwtmysql.entity.Token;
+import dev.hunghh.springsecurityjwtmysql.repository.TokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -45,6 +47,9 @@ public class AccountController {
 	@Autowired
 	private AccountRepository accountRepository;
 
+	@Autowired
+	private TokenRepository tokenRepository;
+
 	// Get Account
 	@GetMapping("/acc")
 	public Page<User> listAccouts(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
@@ -74,7 +79,7 @@ public class AccountController {
 
 	// update Account
 	@PutMapping("/acc/{id}")
-	public ResponseEntity<User> updateAccount(@PathVariable(value = "id") Long accId,
+	public ResponseEntity<User> updateAccount( @PathVariable(value = "id") Long accId,
 			@Valid @RequestBody User acc1) throws ResourceNotFoundException {
 
 		User acc = accountRepository.findById(accId)
@@ -101,6 +106,9 @@ public class AccountController {
 		User acc = accountRepository.findById(accId)
 				.orElseThrow(() -> new ResourceNotFoundException("account not found for this id:" + accId));
 		acc.setActive(true);
+		Token token = tokenRepository.getToken(accId);
+		token.setActive(true);
+		tokenRepository.save(token);
 		final User updateAccount = accountRepository.save(acc);
 		return ResponseEntity.ok(updateAccount);
 	}
@@ -113,6 +121,10 @@ public class AccountController {
 		User acc = accountRepository.findById(accId)
 				.orElseThrow(() -> new ResourceNotFoundException("account not found for this id:" + accId));
 		acc.setActive(false);
+
+		Token token = tokenRepository.getToken(accId);
+		token.setActive(false);
+		tokenRepository.save(token);
 		final User updateAccount = accountRepository.save(acc);
 		return ResponseEntity.ok(updateAccount);
 	}

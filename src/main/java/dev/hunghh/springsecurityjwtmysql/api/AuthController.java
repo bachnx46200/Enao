@@ -45,23 +45,25 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login( @Valid  @RequestBody User user) {
         UserPrincipal userPrincipal = userService.findByUsername(user.getUsername());
-        System.out.println(userPrincipal.getAuthorities());
-
         if (null == user || !new BCryptPasswordEncoder().matches(user.getPassword(), userPrincipal.getPassword())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("tài khoản hoặc mật khẩu không chính xác");
         }
-
         Token token = new Token();
         token.setToken(jwtUtil.generateToken(userPrincipal));
         token.setTokenExpDate(jwtUtil.generateExpirationDate());
-        token.setCreatedBy(userPrincipal.getUserId());
+        token.setId_user(userPrincipal.getUserId());
+        token.setId_infor(userPrincipal.getId_infor());
+        token.setId_role(userPrincipal.getId_role());
+        System.out.println(userPrincipal.getUserId());
+
         tokenService.createToken(token);
-        return ResponseEntity.ok(token.getToken());
+
+        return ResponseEntity.ok(token);
+
     }
 
     @GetMapping("/hello")
-    @PreAuthorize("hasAnyAuthority('USER_READ')")
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('USER_CREATE')")
     public ResponseEntity hello() {
         return ResponseEntity.ok("hello");
     }

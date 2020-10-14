@@ -4,12 +4,16 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.Column;
 import java.util.Collection;
 
 @Getter
 @Setter
 public class UserPrincipal implements UserDetails {
+
     private Long userId;
+    private Long id_infor;
+    private Long id_role;
     private String username;
     private String password;
     private Collection authorities;
