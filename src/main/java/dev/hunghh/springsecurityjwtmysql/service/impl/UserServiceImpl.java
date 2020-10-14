@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUsername(username);
         UserPrincipal userPrincipal = new UserPrincipal();
         if (null != user) {
+            //lay quyen tu user
             Set<String> authorities = new HashSet<>();
             if (null != user.getRoles()) user.getRoles().forEach(r -> {
                 authorities.add(r.getRoleKey());
@@ -36,6 +37,9 @@ public class UserServiceImpl implements UserService {
             userPrincipal.setUsername(user.getUsername());
             userPrincipal.setPassword(user.getPassword());
             userPrincipal.setAuthorities(authorities);
+
+            userPrincipal.setId_infor(user.getId_infor());
+            userPrincipal.setId_role(user.getId_role());
         }
         return userPrincipal;
     }
