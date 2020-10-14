@@ -14,7 +14,7 @@ public static List<NewsDTO> convertToNewsDTO(List<News> news){
 	.title(n.getTitle())
 	.new_desc(n.getNew_desc())
 	.content(n.getContent())
-	.id_user(n.getId_user())
+	.id_user(n.getId_user() )
 	.created_at(n.getCreated_at())
 	.update_at(n.getUpdate_at())
 	.id_cate(n.getId_cate())

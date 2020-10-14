@@ -30,7 +30,7 @@ public class News {
 	@NotNull
 	@Size(min = 2, max = 100, message = "can't smaller 2 and bigger 50")
 	private String new_desc;
-	@Column(name = "content")
+	@Column(name = "content",length = 20000)
 	@NotNull
 	@Size(min = 2, max = 200, message = "can't smaller 2 and bigger 50")
 	private String content;
