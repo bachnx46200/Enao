@@ -32,7 +32,7 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/register")
-    @PreAuthorize("hasAnyAuthority('HT','ADMIN')")
+//    @PreAuthorize("hasAnyAuthority('HT','ADMIN')")
     public Object register(@RequestBody User user) {
         UserPrincipal use= userService.findByUsername(user.getUsername());
         if(user.getUsername().equals(use.getUsername())){
