@@ -20,18 +20,16 @@ public class User extends BaseEntity {
 @NotNull
     private String password;
 
-    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @JoinTable(name = "t_user_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    private Set<Role> roles = new HashSet<>();
-
 
 
     @Column(name = "id_infor")
     private Long id_infor;
 
 
+
+
     @Column(name = "id_role")
-    private Long id_role;
+    private String role;
 
 
     @Column(name = "id_class")

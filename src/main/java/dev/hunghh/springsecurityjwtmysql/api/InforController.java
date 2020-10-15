@@ -22,6 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -114,6 +115,7 @@ public class InforController {
 
 	// Save Infor
 	@PostMapping("/infor")
+	@PreAuthorize("hasAnyAuthority('HT')")
 	public Infor createInfor(@Valid @RequestBody Infor i) {
 
 		return this.inforRepository.save(i);
@@ -121,6 +123,7 @@ public class InforController {
 
 	// update Infor
 	@PutMapping("/infor/{id}")
+	@PreAuthorize("hasAnyAuthority('HT')")
 	public ResponseEntity<Infor> updateInfor(@PathVariable(value = "id") Long inforId, @Valid @RequestBody Infor i1)
 			throws ResourceNotFoundException {
 		Infor i = inforRepository.findById(inforId)
@@ -136,6 +139,7 @@ public class InforController {
 
 	// delete Infor
 	@PutMapping("/delete-infor/{id}")
+	@PreAuthorize("hasAnyAuthority('HT')")
 	public ResponseEntity<Infor> deleteInfor(@PathVariable(value = "id") Long inforId, @Valid @RequestBody Infor i1)
 			throws ResourceNotFoundException {
 		Infor i = inforRepository.findById(inforId)
@@ -211,4 +215,8 @@ public class InforController {
         return inforService.getInfors(fromDate, toDate, fullname, gender, address, phone, pageable);
     }
 
+//    @GetMapping("/inforisHS/{id_class}")
+//	public List<Object[]> getInforisHS(@RequestParam(name = idClass) Long id_class ){
+//		return inforRepository.repo2(id_class);
+//	}
 }

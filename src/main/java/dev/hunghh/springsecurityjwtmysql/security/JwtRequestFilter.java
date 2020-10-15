@@ -1,6 +1,7 @@
 package dev.hunghh.springsecurityjwtmysql.security;
 
 import dev.hunghh.springsecurityjwtmysql.entity.Token;
+import dev.hunghh.springsecurityjwtmysql.repository.TokenRepository;
 import dev.hunghh.springsecurityjwtmysql.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,6 +30,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Autowired
     private TokenService verificationTokenService;
+    @Autowired
+    private TokenRepository tokenRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -49,6 +52,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         //check token va check thoi gian token con su dung
         if (null != user && null != token && token.getTokenExpDate().after(new Date())) {
 
+
             Set<GrantedAuthority> authorities = new HashSet<>();
             user.getAuthorities().forEach(p -> authorities.add(new SimpleGrantedAuthority((String) p)));
             UsernamePasswordAuthenticationToken authentication =
@@ -56,6 +60,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authentication);
             System.out.println("set security");
+//        }else
+//        if ( new Date().after(token.getTokenExpDate())){
+//            System.out.println(token.getId());
+//           tokenRepository.delete(token);
         }
 
         filterChain.doFilter(request, response);

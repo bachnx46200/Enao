@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -185,11 +186,13 @@ public class NewsController {
 	}
 
 	@PostMapping("/news")
+	@PreAuthorize("hasAnyAuthority('HT')")
 	public News createCate(@Valid @RequestBody News news) {
 		return this.newsrepository.save(news);
 	}
 
 	@PutMapping("/news/{id}")
+	@PreAuthorize("hasAnyAuthority('HT')")
 	public ResponseEntity<News> updateNews(@PathVariable(value = "id") Long id, @Valid @RequestBody News n1)
 			throws ResourceNotFoundException {
 		News n = newsrepository.findById(id)
@@ -206,6 +209,7 @@ public class NewsController {
 	}
 
 	@DeleteMapping("/news/{id}")
+	@PreAuthorize("hasAnyAuthority('HT')")
 	public Map<String, Boolean> delete1(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
 		News c = newsrepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("not found this" + id));

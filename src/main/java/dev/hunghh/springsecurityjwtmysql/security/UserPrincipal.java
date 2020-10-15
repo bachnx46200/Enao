@@ -13,7 +13,7 @@ public class UserPrincipal implements UserDetails {
 
     private Long userId;
     private Long id_infor;
-    private Long id_role;
+    private String role;
     private String username;
     private String password;
     private Collection authorities;

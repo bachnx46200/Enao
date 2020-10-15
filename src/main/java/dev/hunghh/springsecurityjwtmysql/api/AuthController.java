@@ -32,6 +32,7 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/register")
+    @PreAuthorize("hasAnyAuthority('HT','ADMIN')")
     public Object register(@RequestBody User user) {
         UserPrincipal use= userService.findByUsername(user.getUsername());
         if(user.getUsername().equals(use.getUsername())){
@@ -53,7 +54,7 @@ public class AuthController {
         token.setTokenExpDate(jwtUtil.generateExpirationDate());
         token.setId_user(userPrincipal.getUserId());
         token.setId_infor(userPrincipal.getId_infor());
-        token.setId_role(userPrincipal.getId_role());
+        token.setRole(userPrincipal.getRole());
         System.out.println(userPrincipal.getUserId());
 
         tokenService.createToken(token);
@@ -63,7 +64,7 @@ public class AuthController {
     }
 
     @GetMapping("/hello")
-    @PreAuthorize("hasAnyAuthority('USER_CREATE')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity hello() {
         return ResponseEntity.ok("hello");
     }

@@ -12,4 +12,7 @@ public interface TokenRepository extends JpaRepository<Token, Long> {
 
     @Query(value="SELECT * FROM t_token u WHERE u.id_user =?1",nativeQuery = true)
     Token getToken(long token);
+
+
+
 }
