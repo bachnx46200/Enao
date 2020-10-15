@@ -20,6 +20,6 @@ public class Token extends BaseEntity{
     private long id_user;
     @Column(name = "id_infor")
     private long id_infor;
-    @Column(name = "id_role")
-    private long id_role;
+    @Column(name = "role")
+    private String role;
 }

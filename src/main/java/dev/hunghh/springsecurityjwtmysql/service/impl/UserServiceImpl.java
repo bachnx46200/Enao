@@ -28,10 +28,14 @@ public class UserServiceImpl implements UserService {
         if (null != user) {
             //lay quyen tu user
             Set<String> authorities = new HashSet<>();
-            if (null != user.getRoles()) user.getRoles().forEach(r -> {
-                authorities.add(r.getRoleKey());
-                r.getPermissions().forEach(p -> authorities.add(p.getPermissionKey()));
-            });
+//            if (null != user.getRoles()) user.getRoles().forEach(r -> {
+//                authorities.add(r.getRoleKey());
+////                r.getPermissions().forEach(p -> authorities.add(p.getPermissionKey()));
+//            });
+
+
+
+            authorities.add(user.getRole());
 
             userPrincipal.setUserId(user.getId());
             userPrincipal.setUsername(user.getUsername());
@@ -39,7 +43,7 @@ public class UserServiceImpl implements UserService {
             userPrincipal.setAuthorities(authorities);
 
             userPrincipal.setId_infor(user.getId_infor());
-            userPrincipal.setId_role(user.getId_role());
+            userPrincipal.setRole(user.getRole());
         }
         return userPrincipal;
     }

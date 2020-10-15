@@ -27,7 +27,10 @@ public interface InforRepository extends JpaRepository<Infor, Long>, JpaSpecific
 			+ "concat(id,' ',fullname,' ',birthday,' ',gender,' ',address,' ',phone) ILIKE %?1%", nativeQuery = true)
 	public Page<Infor> search2(Pageable pageable, String keyword);
 
-	@Query(value = "select fullname,birthday,gender,address,phone,class_name from infor join t_user on infor.id=t_user.id_infor join class on t_user.id_class=class.id and id_role='5' and t_user.id_class=?1", nativeQuery = true)
+	@Query(value = "select fullname,birthday,gender,address,phone,class_name from infor join t_user on infor.id=t_user.id_infor join class on t_user.id_class=class.id and role='HS' and t_user.id_class=?1", nativeQuery = true)
 	List<Tuple> repo(Long id_class);
+
+	@Query(value = "select fullname,birthday,gender,address,phone,class_name from infor join t_user on infor.id=t_user.id_infor join class on t_user.id_class=class.id and role='HS' and t_user.id_class=?1", nativeQuery = true)
+	List<Object[]> repo2(Long id_class);
 
 }

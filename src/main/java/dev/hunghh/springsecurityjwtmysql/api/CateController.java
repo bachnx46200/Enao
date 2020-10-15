@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -91,6 +92,7 @@ public class CateController {
 
 	// them moi
 	@PostMapping("/cate")
+	@PreAuthorize("hasAnyAuthority('HT')")
 	public Category createCate(@Valid @RequestBody Category cate) {
 		return this.cateRepository.save(cate);
 	}
@@ -107,6 +109,7 @@ public class CateController {
 
 	// update
 	@PutMapping("/cate/{id}")
+	@PreAuthorize("hasAnyAuthority('HT')")
 	public ResponseEntity<Category> updateCate(@PathVariable(value = "id") Long cateId, @Valid @RequestBody Category c1)
 			throws ResourceNotFoundException {
 
@@ -121,6 +124,7 @@ public class CateController {
 
 	// delete
 	@DeleteMapping("/cate/{id}")
+	@PreAuthorize("hasAnyAuthority('HT')")
 	public Map<String, Boolean> delete1(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
 		Category c = cateRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("not found this" + id));

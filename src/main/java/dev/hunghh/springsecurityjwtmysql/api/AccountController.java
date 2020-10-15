@@ -20,6 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -68,7 +69,7 @@ public class AccountController {
 	}
 
 	// Get account by id
-	@GetMapping("/acc{id}")
+	@GetMapping("/acc/{id}")
 	public ResponseEntity<User> getAccountById(@PathVariable(value = "id") Long accId)
 			throws ResourceNotFoundException {
 		User ac = accountRepository.findById(accId)
@@ -79,6 +80,7 @@ public class AccountController {
 
 	// update Account
 	@PutMapping("/acc/{id}")
+	@PreAuthorize("hasAnyAuthority('HT')")
 	public ResponseEntity<User> updateAccount( @PathVariable(value = "id") Long accId,
 			@Valid @RequestBody User acc1) throws ResourceNotFoundException {
 
@@ -86,11 +88,11 @@ public class AccountController {
 				.orElseThrow(() -> new ResourceNotFoundException("account not found for this id:" + accId));
 		acc.setUsername(acc1.getUsername());
 		acc.setPassword(acc1.getPassword());
-//		acc.setId_infor(acc1.getId_infor());
+		acc.setId_infor(acc1.getId_infor());
 		acc.setCreatedAt(acc1.getCreatedAt());
 		acc.setUpdatedAt(acc1.getUpdatedAt());
-		acc.setId_role(acc1.getId_role());
-//		acc.setId_class(acc1.getId_class());
+		acc.setRole(acc1.getRole());
+		acc.setId_class(acc1.getId_class());
 
 		final User updateAccount = accountRepository.save(acc);
 		return ResponseEntity.ok(updateAccount);
@@ -100,6 +102,7 @@ public class AccountController {
 
 	// active=true Account
 	@PutMapping("/active-acc/{id}")
+	@PreAuthorize("hasAnyAuthority('HT')")
 	public ResponseEntity<User> TrueAccount(@PathVariable(value = "id") Long accId
 											) throws ResourceNotFoundException {
 
@@ -115,6 +118,7 @@ public class AccountController {
 
 	// active=false Account
 	@PutMapping("/disactive-acc/{id}")
+	@PreAuthorize("hasAnyAuthority('HT')")
 	public ResponseEntity<User> FalseAccount(@PathVariable(value = "id") Long accId
 											) throws ResourceNotFoundException {
 
