@@ -35,7 +35,7 @@ import dev.hunghh.springsecurityjwtmysql.service.CateService;
 
 @RestController
 @RequestMapping("/api/v5")
-
+@CrossOrigin(origins = "*")
 public class CateController {
 	@Autowired
     ApplicationContext context;
