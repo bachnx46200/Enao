@@ -19,7 +19,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,6 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.exception.ResourceNotFoundException;
+import com.sipios.springsearch.anotation.SearchSpec;
 
 import dev.hunghh.springsecurityjwtmysql.dto.InforDTO;
 import dev.hunghh.springsecurityjwtmysql.entity.Infor;
@@ -198,6 +201,42 @@ public class InforController {
 	}
 	
 	
+	@GetMapping("/pdff")
+	@ResponseBody
+	public void getPdf2(HttpServletResponse response) throws Exception {
+		//Get JRXML template from resources folder
+		Resource resource = context.getResource("classpath:abc.jrxml");
+		//Compile to jasperReport
+		InputStream inputStream = resource.getInputStream();
+		JasperReport report = JasperCompileManager.compileReport(inputStream);
+		//Parameters Set
+		Map<String, Object> parameters = new HashMap<>();
+//		parameters.put("Cot1", "FULLNAME");
+//		parameters.put("createdBy", "ENAO TEAM_ONE");
+		List<StudentInfor> students = new ArrayList<>();
+		List<Tuple> infor = inforRepository.repo2();
+		for (Tuple item : infor) {
+			StudentInfor student = new StudentInfor();
+			student.setFullname(item.get("fullname").toString());
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = formatter.parse(item.get("birthday").toString());
+			student.setBirthday(date);
+			student.setGender(item.get("gender").toString());
+			student.setAddress(item.get("address").toString());
+			student.setPhone(item.get("phone").toString());
+			
+			students.add(student);
+		}
+		 //Data source Set
+		JRDataSource dataSource = new JRBeanCollectionDataSource(students);
+	     //Make jasperPrint
+		JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, dataSource);
+		 //Media Type
+		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+		 //Export PDF Stream
+		JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+	}
+	
     @GetMapping("/tt")
     public List<InforDTO> getStudents(@RequestParam(required = false)
                                         @DateTimeFormat(pattern = DATE_PATTERN) Date fromDate,
@@ -210,5 +249,14 @@ public class InforController {
                                         Pageable pageable){
         return inforService.getInfors(fromDate, toDate, fullname, gender, address, phone, pageable);
     }
+    
+    
+    @GetMapping("/cars")
+    public ResponseEntity<List<Infor>> searchForCars(@SearchSpec Specification<Infor> infor) {
+        return new ResponseEntity<>(inforRepository.findAll(Specification.where(infor)), HttpStatus.OK);
+    }
+    
+    
+
 
 }

@@ -33,6 +33,9 @@ public interface AccountRepository extends JpaRepository<User, Long> {
 	// selectByIdClass
 	@Query(value = "select i.fullname,i.birthday,i.gender,i.address,i.phone,ac.userName,cl.class_name from infor as i join t_user as ac on i.id=ac.id_infor join class as cl on ac.id_class=cl.id and ac.id_role='5' and ac.id_class=?1", nativeQuery = true)
 	List<Tuple> findInforByClass2(Long id_class);
+	
+	@Query(value = "select * from infor", nativeQuery = true)
+	List<Tuple> findInforByClass4();
 
 	@Query(value = "select i.fullname,i.birthday,i.gender,i.address,i.phone,ac.userName,cl.class_name from infor as i join t_user as ac on i.id=ac.id_infor join class as cl on ac.id_class=cl.id and ac.id_role='5' and ac.id_class=?1", nativeQuery = true)
 	List<Object[]> findInforByClass3(Long id_class);

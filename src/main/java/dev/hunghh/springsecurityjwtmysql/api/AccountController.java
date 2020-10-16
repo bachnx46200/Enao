@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.excel.AccountExcelExporter;
+import com.example.demo.excel.AccountExcelExporter2;
 import com.example.demo.exception.ResourceNotFoundException;
 
 import com.example.demo.pdf.AccountPDFExporter;
@@ -182,6 +183,21 @@ public class AccountController {
 		response.setHeader(headerKey, headerValue);
 		List<Tuple> listAcc = accountRepository.findInforByClass2(id_class);
 		AccountExcelExporter excelExporter = new AccountExcelExporter(listAcc);
+		excelExporter.export(response);
+	}
+	
+	
+	@GetMapping("/acc/export/excel2")
+	public void exportToExcel2(HttpServletResponse response)
+			throws IOException {
+		response.setContentType("application/octet-stream");
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		String currentDateTime = dateFormatter.format(new Date());
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=Account_" + currentDateTime + ".xlsx";
+		response.setHeader(headerKey, headerValue);
+		List<Tuple> listAcc = accountRepository.findInforByClass4();
+		AccountExcelExporter2 excelExporter = new AccountExcelExporter2(listAcc);
 		excelExporter.export(response);
 	}
 

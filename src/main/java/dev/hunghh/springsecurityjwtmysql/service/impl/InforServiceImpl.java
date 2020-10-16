@@ -38,13 +38,13 @@ public class InforServiceImpl implements InforService {
 	                p = cb.and(p, cb.between(root.get("birthday"), fromDate, toDate));
 	            }
 	            if (!StringUtils.isEmpty(fullname)) {
-	                p = cb.and(p, cb.like(root.get("fullname"), "%" + fullname + "%"));
+	            	   p = cb.and(p, cb.like(root.get("fullname"), "%" + fullname + "%"));
 	            }
 	            if (!StringUtils.isEmpty(gender)) {
-	                p = cb.and(p, cb.like(root.get("gender"), "%" + gender + "%"));
+	            	   p = cb.and(p, cb.like(root.get("gender"), "%" + gender + "%"));
 	            }
 	            if (!StringUtils.isEmpty(address)) {
-	                p = cb.and(p, cb.like(root.get("address"), "%" + address + "%"));
+	            	   p = cb.and(p, cb.like(root.get("address"), "%" + address + "%"));
 	            }
 	            if (!StringUtils.isEmpty(phone)) {
 	                p = cb.and(p, cb.like(root.get("phone"), "%" + phone + "%"));

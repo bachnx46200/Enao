@@ -16,18 +16,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
-                .csrf().disable()
-                .cors() // Ngăn chặn request từ một domain khác
-                .and()
-       .authorizeRequests().antMatchers("/login").permitAll().and()
-       .authorizeRequests().antMatchers("/register").permitAll()
-        .and()
-                .authorizeRequests()
-                .antMatchers("/api/v4/acc").hasAuthority("USER_READ") // (1)
-                .antMatchers("/api/v3").hasAnyAuthority("USER_READ", "USER_CREATE") // (2)
-                .anyRequest().authenticated() // (3)
-                .and()
-                .httpBasic();
+                .csrf().disable();
+//                .cors() // Ngăn chặn request từ một domain khác
+//                .and()
+//       .authorizeRequests().antMatchers("/login").permitAll().and()
+//       .authorizeRequests().antMatchers("/register").permitAll()
+//        .and()
+//                .authorizeRequests()
+//                .antMatchers("/api/v4/acc").hasAuthority("USER_READ") // (1)
+//                .antMatchers("/api/v3").hasAnyAuthority("USER_READ", "USER_CREATE") // (2)
+//                .anyRequest().authenticated() // (3)
+//                .and()
+//                .httpBasic();
 
 
     }

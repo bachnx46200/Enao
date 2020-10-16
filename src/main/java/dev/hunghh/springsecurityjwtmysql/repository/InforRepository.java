@@ -29,5 +29,8 @@ public interface InforRepository extends JpaRepository<Infor, Long>, JpaSpecific
 
 	@Query(value = "select fullname,birthday,gender,address,phone,class_name from infor join t_user on infor.id=t_user.id_infor join class on t_user.id_class=class.id and id_role='5' and t_user.id_class=?1", nativeQuery = true)
 	List<Tuple> repo(Long id_class);
+	
+	@Query(value = "select * from infor", nativeQuery = true)
+	List<Tuple> repo2();
 
 }
